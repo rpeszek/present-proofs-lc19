@@ -1,0 +1,43 @@
+name:                present-proofs-lc19
+synopsis:            Code accompanying LC2019 talk "Write You Some Proofs for Great Good"
+version:             0.1.0.0
+github:              "githubuser/present-proofs-lc19"
+license:             BSD3
+author:              "Robert Peszek"
+maintainer:          "example@example.com"
+copyright:           "2019 Robert Peszek"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/present-proofs-lc19#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- singletons
+
+library:
+  source-dirs: src
+  ghc-options:
+  - -threaded
+  - -fwarn-unused-imports 
+  - -fwarn-incomplete-patterns
+
+tests:
+  present-proofs-lc19-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - present-proofs-lc19

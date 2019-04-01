@@ -1,0 +1,8 @@
+package present-proofs-lc19
+
+modules = Main
+         , Motivation.DepTyped
+ 
+sourcedir = src
+main = Main
+executable = presentProofsLc19
