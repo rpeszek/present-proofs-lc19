@@ -30,6 +30,7 @@ test = 1 -: 2 -: 3 -: VNil !!! s1
 test2 = 1 -: 2 -: 3 -: VNil !!! s4
 
 -- Question: How come (!!!) compiles?
+-- (_it does not in Idris_)
 -- Answ: ghc knows:
 th :: (Less m n) :~: (Less (S m) (S n))
 th = TE.Refl

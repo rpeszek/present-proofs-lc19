@@ -5,8 +5,21 @@ import Data.Fin
 
 %default total
 
--- show how limited solution space is by having idris derive the solution
+-- get still allows for programming errors
+-- Note: Idris knows get is total!
+get : Fin n -> Vect n a -> a
+get k (x :: xs) = x -- wrong
 
-get : Vect n a -> Fin n -> a 
+-- show how limited solution space is by having Idris interactively implement the solution
+-- reverse of append which is also very precise
+vsplitAt : (n : Nat) -> Vect (n + m) a -> (Vect n a, Vect m a)
+
+
+
+
+
+
+
+
 
 
