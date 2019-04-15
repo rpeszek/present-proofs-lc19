@@ -1,5 +1,3 @@
-{-# LANGUAGE ScopedTypeVariables 
-    , PartialTypeSignatures #-}  
 
 -- for simple use: 
 -- > alias rshake="runhaskell Shake"
@@ -23,6 +21,7 @@ task = flip (<->)
 
 proj = "present-proofs-lc19"
 proj_idr = proj <.> "ipkg"
+inSrc = Cwd "src"
 
 idris = "idris"
 stack = "stack"
@@ -53,3 +52,6 @@ main = shakeArgs opts $ do
     idris <-> build ~> cmd_ [idris] "--build" [proj_idr]
     stack <-> build ~> cmd_ [stack] "build" 
     liquid <-> build ~> cmd_ [liquid] "src/Motivation/Liquid.hs"
+
+    idris ~> cmd_ inSrc idris
+    
