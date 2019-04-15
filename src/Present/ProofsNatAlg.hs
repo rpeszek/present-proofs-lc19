@@ -6,6 +6,7 @@
   , KindSignatures
   , PolyKinds
 #-}
+{-# OPTIONS_GHC -fenable-rewrite-rules #-}
 
 module Present.ProofsNatAlg (
   plusCommutative
@@ -17,12 +18,14 @@ import Unsafe.Coerce
 
 
 -- | Using rewrite rule eliminates run time cost of proofs
+-- Error prone and not ideal.
 plusCommutative :: SNat left -> SNat right -> ((left + right) :~: (right + left))
-{-# NOINLINE [1] plusCommutative #-}
+{-# INLINE CONLIKE [1] plusCommutative #-}
+-- {-# NOINLINE plusCommutative #-}
 plusCommutative left right = case left of 
-            SZ  -> lemma1 right
+            SZ  ->  lemma1 right
             -- | recursive
-            (SS k)  -> case plusCommutative k right of Refl -> sym (lemma2 right k)
+            (SS k)  ->  case plusCommutative k right of Refl -> sym (lemma2 right k)
 
 {-# RULES "proof" forall l r. plusCommutative l r = unsafeCoerce Refl #-} 
 

@@ -30,6 +30,7 @@ library:
   - -threaded
   - -fwarn-unused-imports 
   - -fwarn-incomplete-patterns
+  - -O
 
 tests:
   present-proofs-lc19-test:
