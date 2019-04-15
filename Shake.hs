@@ -16,7 +16,7 @@ import Data.Semigroup ((<>))
 
 opts = shakeOptions { shakeFiles = ".shake/" }        
 
-(<->) pref surf = pref <> "-" <> surf
+(<->) pref suf = pref <> "-" <> suf
 task = flip (<->)
 
 proj = "present-proofs-lc19"

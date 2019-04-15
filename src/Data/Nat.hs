@@ -48,6 +48,21 @@ natToInteger (S un) = 1 + (natToInteger un)
 someNatToInteger :: SomeSing Nat -> Integer
 someNatToInteger (SomeSing n) = natToInteger (fromSing n)
 
+integerToNat :: Integer -> Nat
+integerToNat n 
+        | n < 0 = integerToNat (negate n) -- kinda quick and dirty to make it total
+        | n == 0 = Z
+        | otherwise = S (integerToNat (n - 1))
+
+withSomeNat :: Nat -> (forall n . SNat n -> r) -> r
+withSomeNat = withSomeSing
+
+-- need Some SNat
+
+-- test method
+-- withNat :: Nat -> (forall n . SNat n -> r) -> r
+-- withNat Z f = f SZ
+-- withNat (S n) f = undefined 
 
 -- Singling of literal patterns not yet supported
 type family ToTL (n :: Nat) :: TL.Nat where
