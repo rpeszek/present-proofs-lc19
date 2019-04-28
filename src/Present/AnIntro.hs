@@ -15,7 +15,12 @@ import qualified Data.Maybe as Mbe
 conjunctionElim :: (a,b) -> a
 conjunctionElim = fst
 
--- | Not a proposition
+{- | Disjunction cunfusa - No such proposition
+
+ P v Q  
+ -----  ( (P v Q) -> P )
+   P
+-}
 unsafeLeft :: Either a b -> a
 unsafeLeft (Left a) = a 
 unsafeLeft (Right _) = error "that is not right!"

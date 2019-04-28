@@ -11,14 +11,19 @@ module Present.MaybeB where
 import           Data.Singletons.Prelude.Bool
 import           Data.Semigroup
   
+
+
 data MaybeB (b :: Bool) a where
     NothingB :: MaybeB False a
     JustB    :: a -> MaybeB True a
 
 deriving instance Show a => Show (MaybeB b a)
 
+
+-- Note -fwarn-incomplete-patterns is ON
 fromJustB :: MaybeB True a -> a     
 fromJustB (JustB a) = a
+
 
 -- | Information stored in MaybeB can only grow
 append :: Semigroup m => 
@@ -33,11 +38,11 @@ append' :: Semigroup m =>
            Maybe m -> Maybe m -> Maybe m
 append' _ _ = Nothing -- cannot do that with MaybeB!
 
-
+-- this works
 firstKnown :: Semigroup m => MaybeB True m -> MaybeB b m -> MaybeB 'True m
 firstKnown = append
 
--- Problem in paradise
+-- Problem in paradise!
 secondKnown :: Semigroup m => MaybeB b m -> MaybeB 'True m -> MaybeB 'True m
 secondKnown = undefined 
 -- secondKnown = append

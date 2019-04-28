@@ -5,5 +5,7 @@ present-proofs-lc19.cabal
 *~
 
 *.ibc
+*.o
+*.hi
 
 Temp*
