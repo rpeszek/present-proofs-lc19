@@ -9,3 +9,4 @@ present-proofs-lc19.cabal
 *.hi
 
 Temp*
+temp*
