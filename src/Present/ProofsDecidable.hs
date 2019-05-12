@@ -11,15 +11,15 @@
 #-}
 
 --
--- Program like Hilbert would!
+-- Program like David Hilbert would!
 --
 module Present.ProofsDecidable where
 
 import Data.Void 
-import Data.Nat hiding (Less)
+import Data.Nat hiding (Less) -- defined in this package
 
 
--- | Gentlemen's agreement terminiating proofs only please.
+-- | Gentlemen's agreement: terminiating proofs only please.
 data Dec prop = Yes prop | No (prop -> Void)
 
 instance Show (Dec a) where
@@ -63,4 +63,5 @@ correctLess :: SNat n -> SNat m -> Bool
 correctLess n m = trivialize (decideLess n m)
 
 
+-- Next: (back to slides)
 

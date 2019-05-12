@@ -31,7 +31,7 @@ append :: Semigroup m =>
 append NothingB x = x
 append x@(JustB a) NothingB = x
 append (JustB a) (JustB b) = JustB (a <> b)
--- append _ _ = NothingB
+-- append _ _ = NothingB  -- to demonstrate better precision
 
 -- Notice Better Precision (smaller solution space) than Maybe
 append' :: Semigroup m => 
@@ -47,3 +47,5 @@ secondKnown :: Semigroup m => MaybeB b m -> MaybeB 'True m -> MaybeB 'True m
 secondKnown = undefined 
 -- secondKnown = append
 -- secondKnown = flip append  -- brittle!!
+
+-- Next: (back to slides)

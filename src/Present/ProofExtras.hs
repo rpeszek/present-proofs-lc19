@@ -9,6 +9,10 @@
   , AllowAmbiguousTypes
 #-}
 
+------------
+-- Examples from Type Equality slide
+------------
+
 module Present.ProofExtras where
 
 import           Data.Type.Equality 

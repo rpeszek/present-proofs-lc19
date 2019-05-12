@@ -3,7 +3,7 @@ module Present.AnIntro where
 
 import qualified Data.Maybe as Mbe  
 
--- Curry-Howard
+-- Curry-Howard vs Imperative Gentlemen's Agreements
 
 {- | Conjunction elimination in propositional logic
 
@@ -12,23 +12,25 @@ import qualified Data.Maybe as Mbe
    P 
 -} 
 
-conjunctionElim :: (a,b) -> a
-conjunctionElim = fst
+fst :: (a,b) -> a
+fst (a,b) = a
 
-{- | Disjunction cunfusa - No such proposition
+{- |  (Imperative Laguage Semantic Rule)
+      Disjunction Cunfusa - No such proposition
 
  P v Q  
- -----  ( (P v Q) -> P )
+ -----  ( (P v Q) -> Q )
    P
 -}
-unsafeLeft :: Either a b -> a
-unsafeLeft (Left a) = a 
-unsafeLeft (Right _) = error "that is not right!"
+unsafeRight :: Either e a -> a
+unsafeRight (Right a) = a
+unsafeRight (Left _) = error "problem!"
 
--- | Not a proposition
--- copy of actual Data.Maybe function
+-- | (Java null, Python None, C++ nullptr/NULL, ...) 
+-- Copy of actual Data.Maybe.fromJust 
 fromJust :: Maybe a -> a
 fromJust = Mbe.fromJust
 
--- can we make these check out?
+-- can we make these safe?
     
+-- Next: (code) Present/MaybeB.hs    

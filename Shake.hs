@@ -26,11 +26,14 @@ inSrc = Cwd "src"
 idris = "idris"
 stack = "stack"
 liquid = "liquid"
+ohi = "ohi"  -- local editor compilation
 
-targets = [liquid, idris, stack] 
+targets = [liquid, idris, stack, ohi] 
 
 clean = "clean"
 build = "build"
+
+show_ = "show"
 
 main :: IO ()
 main = shakeArgs opts $ do
@@ -48,10 +51,19 @@ main = shakeArgs opts $ do
     idris <-> clean ~> cmd_ [idris] "--clean" [proj_idr]   
     stack <-> clean ~> cmd_ [stack] "clean"
     liquid <-> clean ~> removeFilesAfter "src/Motivation/.liquid" ["//*"] 
+    ohi <-> clean ~> (removeFilesAfter "src" ["//*.o"] >> 
+                     removeFilesAfter "src" ["//*.hi"])
 
     idris <-> build ~> cmd_ [idris] "--build" [proj_idr]
     stack <-> build ~> cmd_ [stack] "build" 
     liquid <-> build ~> cmd_ [liquid] "src/Motivation/Liquid.hs"
+    ohi <-> build ~> pure ()
 
-    idris ~> cmd_ inSrc idris
+    show_ <-> idris ~> cmd_ inSrc idris
+
+    show_ <-> "maybeb" ~> cmd "stack ghci src/Present/MaybeB.hs"    
+    show_ <-> "boolalg" ~> cmd "stack ghci src/Present/ProofsBoolAlg.hs"  
+    show_ <-> "natalg" ~> cmd "stack ghci src/Present/ProofsNatAlg.hs"   
+    show_ <-> "dec" ~> cmd "stack ghci src/Present/ProofsDecidable.hs"
+
     

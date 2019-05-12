@@ -6,12 +6,12 @@
 #-}
 {-# OPTIONS_GHC -fenable-rewrite-rules #-}
 
--- | Using rewrite rule eliminates run time cost of proofs
+-- | About eliminatating run time cost of proofs
 module Present.ProofsNatAlg (
   plusCommutative
 ) where
 
-import           Data.Nat
+import           Data.Nat -- defined in this package
 import           Data.Type.Equality ((:~:)(Refl), sym)
 import           Unsafe.Coerce
 import qualified Test.QuickCheck as Property
@@ -51,6 +51,8 @@ plusCommutative left right = case left of
 -- 
 -- {-# RULES "proof" forall l r. plusCommutative l r = unsafeCoerce Refl #-} 
 --
+-- ref https://typesandkinds.wordpress.com/2016/07/24/dependent-types-in-haskell-progress-report/
+--
 -- Better approach (uncomment to work):
 
 -- {-# NOINLINE plusCommutative #-}
@@ -59,6 +61,8 @@ plusCommutative left right = case left of
 believeMeEq :: a :~: b 
 believeMeEq = unsafeCoerce Refl
 
+-- NOTE on ghci evaluation, evaluate 'test1', not just 'plusCommutative s4 s1'
+-- to see rules take effect
 test1 = plusCommutative s4 s1 
 
 ------------------------------------------
@@ -81,3 +85,5 @@ termProp (i, j) = (integerToNat i) `withSomeSing` (\ni ->
                     ))
 
 testTerm = Property.quickCheck termProp
+
+-- Next: (back to slides)

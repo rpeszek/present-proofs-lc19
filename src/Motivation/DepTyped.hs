@@ -9,13 +9,15 @@
 
 module Motivation.DepTyped where
 
-import           Data.Vect
-import           Data.Nat
+import           Data.Vect  -- defined in this package
+import           Data.Nat   -- defined in this package
 import           Present.MaybeB
 import           Data.Type.Equality ((:~:))
 import qualified Data.Type.Equality as TE
 
-
+-------
+-- example from Motivation (call-side safety) slide
+-------
 
 infixl 3 !!!
 

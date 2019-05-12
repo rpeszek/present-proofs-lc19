@@ -2,6 +2,7 @@ package present-proofs-lc19
 
 modules = Main
          , Motivation.DepTyped
+         , Motivation.Exfer
  
 sourcedir = src
 main = Main

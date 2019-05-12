@@ -18,12 +18,12 @@ import           Data.Singletons
 import           Data.Semigroup
 
 
--- | Refl means GHC knows the theorem
+-- | use of 'Refl' indicates that GHC knows it
 -- how?
 th0 ::  forall b . True :~: (True :|| b)
 th0 = Refl   
 
--- | GHC really does not know these:
+-- | GHC does not know these:
 -- th1' :: True :~: (b :|| True)
 -- th1' b = Refl   
 
@@ -49,9 +49,9 @@ orCommutes b1 b2 = case b1 of
    STrue -> th1 b2  -- why is this equivalent? think about it! Hint is `th0`
   
 
------------------------------------
--- Ready to implement secondKnown
------------------------------------
+------------------------------------------
+-- We are ready to implement 'secondKnown'
+------------------------------------------
 
 secondKnown :: Semigroup m => SBool b -> MaybeB b m -> MaybeB 'True m -> MaybeB 'True m
 secondKnown b x1 x2 = case th1 b of 
@@ -72,3 +72,6 @@ secondKnown3 = secondKnown
 secondKnown4 :: forall m b . (Semigroup m, SingI b) => MaybeB b m -> MaybeB 'True m -> MaybeB 'True m
 secondKnown4 x1 x2 = case th1 (sing :: Sing b) of 
     Refl -> append x1 x2
+
+
+-- Next (back to slides)
