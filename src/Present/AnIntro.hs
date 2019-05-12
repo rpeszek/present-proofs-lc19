@@ -15,7 +15,7 @@ import qualified Data.Maybe as Mbe
 fst :: (a,b) -> a
 fst (a,b) = a
 
-{- |  (Imperative Laguage Semantic Rule)
+{- |  (Imperative Exception System)
       Disjunction Cunfusa - No such proposition
 
  P v Q  
@@ -26,8 +26,7 @@ unsafeRight :: Either e a -> a
 unsafeRight (Right a) = a
 unsafeRight (Left _) = error "problem!"
 
--- | (Java null, Python None, C++ nullptr/NULL, ...) 
--- Copy of actual Data.Maybe.fromJust 
+-- | (Imperative Null Semantic Rule)
 fromJust :: Maybe a -> a
 fromJust = Mbe.fromJust
 
