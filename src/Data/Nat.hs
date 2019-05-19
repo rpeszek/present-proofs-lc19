@@ -10,6 +10,9 @@
       , ScopedTypeVariables
       , TypeSynonymInstances
       , Rank2Types
+      , FlexibleContexts
+      , AllowAmbiguousTypes
+      , TypeApplications
 #-}
 
 module Data.Nat where
@@ -69,24 +72,33 @@ type family ToTL (n :: Nat) :: TL.Nat where
     ToTL Z = 0
     ToTL (S n) = 1 TL.+ (ToTL n)
 
+type SToTL n = Sing (ToTL n)
+
+sToTL :: forall (n :: Nat). SingI (ToTL n) => Sing (ToTL n) 
+sToTL = sing
+
+-- easy TL Sing values
+tl0 = sToTL @ Z
+tl1 = sToTL @ (S Z)
+
 type family FromTL (n :: TL.Nat) :: Nat where
     FromTL 0 = Z
     FromTL n = S (FromTL (n TL.- 1))
+
+type SFromTL n = Sing (FromTL n)
+
+sFromTL :: forall (n :: TL.Nat). SingI (FromTL n) => Sing (FromTL n) 
+sFromTL = sing
+
+-- easy SNat values
+s0 = sFromTL @ 0 -- SZ
+s1 = sFromTL @ 1 -- ('SS 'SZ)
+s2 = sFromTL @ 2 
+s3 = sFromTL @ 3
+s4 = sFromTL @ 4
 
 type family (m :: Nat) + (n :: Nat) :: Nat where
    left + right = Plus left right 
 
 type family (m :: Nat) < (n :: Nat) :: Bool where
    left < right = Less left right 
-
-
-s0 :: SNat (FromTL 0) -- 'Z
-s0 = SZ
-s1 :: SNat (FromTL 1) -- ('S 'Z)
-s1 = SS s0
-s2 :: SNat (FromTL 2) -- ('S ('S 'Z))
-s2 = SS s1
-s3 :: SNat (FromTL 3) -- ('S ('S ('S 'Z)))
-s3 = SS s2
-s4 :: SNat (FromTL 4) 
-s4 = SS s3

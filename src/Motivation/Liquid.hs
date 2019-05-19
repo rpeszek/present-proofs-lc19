@@ -2,7 +2,7 @@ module Motivation.Liquid where
 
 import         Data.List ((!!))
 
--- if Liduid is global-cabal installed
+-- if Liquid is global-cabal installed
 -- liquid src/Motivation/Liquid.hs
 
 {-@ (!!!) :: x: [a] -> {i:Nat | i < len x} -> a @-}
@@ -16,12 +16,8 @@ test = (!!!) [1,2,3] 1
 -- test2 :: Int
 -- test2 = (!!!) [1,2,3] 3
 
--- Liquid comes with predefined refinments 
+-- Liquid comes with predefined refinements 
 -- this will not compile:
 
 -- test3 :: Int
 -- test3 = (!!) [1,2,3] 3
-
-
-
-
