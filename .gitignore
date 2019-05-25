@@ -3,6 +3,7 @@
 .shake/
 .history/
 present-proofs-lc19.cabal
+presentProofsLc19
 *~
 
 *.ibc

@@ -33,6 +33,10 @@ infixr 5 -:
 (-:) :: a -> Vect n a -> Vect ('S n) a
 (-:) = VCons
 
+repeatV :: Sing n -> a ->  Vect n a
+repeatV SZ _ = VNil
+repeatV (SS k) a = a `VCons` (repeatV k a)
+
 -- data instance Sing ( v :: Vect n a) :: Type where
 --   SVNil :: Sing VNil
 --   SVCons :: Sing a -> Sing v -> Sing (VCons a v)
