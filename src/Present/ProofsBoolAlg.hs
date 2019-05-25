@@ -31,15 +31,23 @@ th0 = Refl
 -- th1'' :: SBool b -> True :~: (b :|| True)
 -- th1'' b = Refl   
 
--- ^ brittle alert: 
---   should programmer know that (||) was defined pattern by matching on first variable not second?
---   what if if was defined without a pattern match???
-
 {- Think of `SBool b` as 
 data SBool (b :: Bool) where
   SFalse :: SBool False
   STrue :: SBool True 
+
+remember:
+
+(||) :: Bool -> Bool -> Bool
+True || b = True
+False || b = b
 -}
+
+-- ^ brittle alert: 
+--   should programmer know that (||) was defined pattern by matching on first variable not second?
+--   what if it was defined without a pattern match???
+--   Drawback of using value level expressions at type level!
+
 
 th1 :: SBool b -> 
        True :~: (b :|| True)
@@ -53,7 +61,7 @@ orCommutes b1 b2 = case b1 of
    SFalse -> case b2 of 
        SFalse -> Refl
        STrue -> Refl
-   STrue -> th1 b2  -- why is this equivalent? think about it! Hint is `th0`
+   STrue -> th1 b2  -- why this works? think about it! Hint is `th0`
   
 
 ------------------------------------------

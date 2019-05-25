@@ -63,7 +63,7 @@ main = shakeArgs opts $ do
 
     show_ <-> "maybeb" ~> cmd "stack ghci src/Present/MaybeB.hs"    
     show_ <-> "boolalg" ~> cmd "stack ghci src/Present/ProofsBoolAlg.hs"  
-    show_ <-> "natalg" ~> cmd "stack ghci src/Present/ProofsNatAlg.hs"   
+    show_ <-> "perf" ~> cmd "stack ghci src/Present/ProofsNatAlg.hs"   
     show_ <-> "dec" ~> cmd "stack ghci src/Present/ProofsDecidable.hs"
     show_ <-> "typelits" ~> cmd "stack ghci src/Present/WorkingWithTypeLits.hs"
 

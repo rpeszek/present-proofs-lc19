@@ -3,6 +3,7 @@
   , DataKinds
   , TypeFamilies
   , PolyKinds
+  , TypeApplications
 #-}
 {-# OPTIONS_GHC -fenable-rewrite-rules #-}
 
@@ -66,7 +67,7 @@ believeMeEq = unsafeCoerce Refl
 
 -- NOTE on ghci evaluation, evaluate 'test1', not just 'plusCommutative s4 s1'
 -- to see rules take effect
-test1 = plusCommutative s4 s1
+test1 = plusCommutative (sFromTL @ 4) (sFromTL @ 1)
 
 ------------------------------------------
 -- SOLUTION 2 proof combinator

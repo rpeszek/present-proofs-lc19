@@ -12,7 +12,7 @@
 -- | Shows why Peano defined Nat theorems (ProofsNatAlg)
 -- do not translate directly to TypeLits.
 -- The reason is that Peano 'Nat'
--- (as defined in 'Data.Nat' in this project) is defined recursivelly
+-- (as defined in 'Data.Nat' in this project) is defined recursively
 -- and so is '+' providing definitionally true propositions
 -- we can hook into.  This is not true in TypeLits, we have nothing
 -- to base proofs on.
@@ -43,13 +43,11 @@ definitional n m = believeMeEq
 
 {- |
  Automatic in ProofsNatAlg
- This is also definitionally correct for recursive definition of (+)
- (1 + (left + right))
-   :def plus (reversed) = (1 + left) + right
+  (reversed succesor equation in def of '+')
 -}
 assoc1 :: (KnownNat left, KnownNat right) => NatPeano left -> NatPeano right ->
-        (1 + (left + right)) :~: ((1 + left) + right) -- RHS same as (1 + left + right)
-assoc1 n m = believeMeEq
+        1 + (left + right) :~: ((1 + left) + right) -- RHS same as (1 + left + right)
+assoc1 n m = sym $ definitional n m
 
 -- | GHC knows that automatically:
 ind ::

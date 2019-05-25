@@ -7,6 +7,7 @@
   , PolyKinds
   , ScopedTypeVariables
   , AllowAmbiguousTypes
+  , TypeApplications
   , EmptyCase
 #-}
 
@@ -15,8 +16,8 @@
 --
 module Present.ProofsDecidable where
 
-import Data.Void
-import Data.Nat hiding (Less) -- defined in this package
+import           Data.Void
+import           Data.Nat hiding (Less) -- defined in this package
 
 
 -- | Gentleman's agreement: terminating proofs only please.
@@ -53,15 +54,21 @@ decideLess SZ SZ = No $ (\x -> case x of { })
 decideLess (SS n) SZ = No $ (\x -> case x of { })
 decideLess SZ (SS m) = Yes $ LessZ m
 decideLess (SS n) (SS m) = case decideLess n m of
-       Yes prf -> Yes $ LessS prf
-       No contra -> No $ (\x -> case x of
+      Yes prf -> Yes $ LessS prf
+      No contra -> No $ (\x -> case x of
                              LessS y -> contra y
                              )
 
--- decideLess is better version of (<)
--- check out information loss:
+-- decideLess is a better version of (<)
+-- check out the information loss:
 correctLess :: SNat n -> SNat m -> Bool
 correctLess n m = trivialize (decideLess n m)
+
+infix 3 <!
+(<!) = correctLess
+
+-- ghci
+tst = sFromTL @ 2 <! sFromTL @ 3
 
 
 -- Next: (back to slides)
