@@ -43,10 +43,11 @@ True || b = True
 False || b = b
 -}
 
--- ^ brittle alert: 
+-- ^ brittleness alert: 
 --   should programmer know that (||) was defined pattern by matching on first variable not second?
 --   what if it was defined without a pattern match???
 --   Drawback of using value level expressions at type level!
+--   To prove X requires knowing implementation of X - dah
 
 
 th1 :: SBool b -> 

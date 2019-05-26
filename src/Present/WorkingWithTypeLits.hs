@@ -7,7 +7,6 @@
   , GADTs
   -- , ScopedTypeVariables
 #-}
-{-# OPTIONS_GHC -fenable-rewrite-rules #-}
 
 -- | Shows why Peano defined Nat theorems (ProofsNatAlg)
 -- do not translate directly to TypeLits.

@@ -3,7 +3,7 @@ module Motivation.DepTyped
 import Data.Vect
 import Data.Fin
 
--- NOTE totality check, gentleman's agreement when defining proofs in Haskell
+-- NOTE totality check, gentlemen's agreement when defining proofs in Haskell
 %default total
 
 infixl 3 !!

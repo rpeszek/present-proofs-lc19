@@ -2,7 +2,7 @@ module Motivation.Exfer
 
 import Data.Vect
 
--- NOTE totality check, gentleman's agreement when defining proofs in Haskell 
+-- NOTE totality check, gentlemen's agreement when defining proofs in Haskell 
 %default total
 
 

@@ -20,9 +20,9 @@ module Present.ProofsDecidable where
 import           Data.Void
 import           Data.Nat hiding (Less) -- defined in this package
 import           Data.Vect
-import           Data.Singletons
 
--- | Gentleman's agreement: terminating proofs only please.
+
+-- | Gentlemen's agreement: terminating proofs only please.
 -- singletons package has a similar @Decision@ type
 data Dec prop = Yes prop | No (prop -> Void)
 
@@ -92,7 +92,7 @@ tst = sFromTL @ 2 <! sFromTL @ 3
 
 
 -- | But this is doable!
--- polymorphic element pick from Vect n a possible iff n > 0
+-- polymorphic pick element from 'Vect n a' is possible iff n > 0
 data PickElem n = PickElem (forall a . Vect n a -> a)
 
 pickElem :: forall n a . SNat n ->  Dec (PickElem n)

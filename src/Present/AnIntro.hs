@@ -3,7 +3,7 @@ module Present.AnIntro where
 
 import qualified Data.Maybe as Mbe
 
--- Curry-Howard vs Imperative Gentleman's Agreements
+-- Curry-Howard vs Imperative Gentlemen's Agreements
 
 {- | Conjunction elimination in propositional logic
 
