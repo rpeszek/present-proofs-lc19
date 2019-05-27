@@ -91,3 +91,5 @@ plusCommutative left right = case left of
             (PeanoS k) -> case definitional k right of -- had to be added
                Refl -> case plusCommutative k right of
                   Refl -> sym (lemma2 right k)
+
+-- Next: (back to slides)

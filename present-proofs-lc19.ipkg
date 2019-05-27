@@ -1,8 +1,7 @@
 package present-proofs-lc19
 
 modules = Main
-         , Motivation.DepTyped
-         , Motivation.Exfer
+         , Wrapup.Exfer
  
 sourcedir = src
 main = Main

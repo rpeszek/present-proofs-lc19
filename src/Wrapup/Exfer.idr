@@ -1,4 +1,4 @@
-module Motivation.Exfer
+module Wrapup.Exfer
 
 import Data.Vect
 
@@ -21,5 +21,3 @@ rL : List a -> List a
 
 rV : Vect n a -> Vect n a
 
-
--- Next: (code) Present/AnIntro.hs

@@ -1,4 +1,4 @@
-module Motivation.Liquid where
+module Wrapup.Liquid where
 
 import         Data.List ((!!))
 

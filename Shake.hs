@@ -50,13 +50,13 @@ main = shakeArgs opts $ do
     "shake-clean" ~> removeFilesAfter ".shake" ["//*"]
     idris <-> clean ~> cmd_ [idris] "--clean" [proj_idr]   
     stack <-> clean ~> cmd_ [stack] "clean"
-    liquid <-> clean ~> removeFilesAfter "src/Motivation/.liquid" ["//*"] 
+    liquid <-> clean ~> removeFilesAfter "src/Wrapup/.liquid" ["//*"] 
     ohi <-> clean ~> (removeFilesAfter "src" ["//*.o"] >> 
                      removeFilesAfter "src" ["//*.hi"])
 
     idris <-> build ~> cmd_ [idris] "--build" [proj_idr]
     stack <-> build ~> cmd_ [stack] "build" 
-    liquid <-> build ~> cmd_ [liquid] "src/Motivation/Liquid.hs"
+    liquid <-> build ~> cmd_ [liquid] "src/Wrapup/Liquid.hs"
     ohi <-> build ~> pure ()
 
     show_ <-> idris ~> cmd_ inSrc idris

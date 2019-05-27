@@ -1,7 +1,6 @@
 module Main
 
-import Motivation.DepTyped
-import Motivation.Exfer
+import Wrapup.Exfer
 
 main : IO ()
 main = putStrLn "Hello"
