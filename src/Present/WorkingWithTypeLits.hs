@@ -92,4 +92,12 @@ plusCommutative left right = case left of
                Refl -> case plusCommutative k right of
                   Refl -> sym (lemma2 right k)
 
+
+-- OPINION: Make client code (+) implementation agnostic 
+-- Peano (Data.Nat) proofs should not have relied in implicit 
+-- (1 + left) + right :~: 1 + (left + right)
+-- 1 + (left + right) :~: ((1 + left) + right) 
+-- propositions. These base propositions should have been stated explicitly
+-- and used in client code when relevant ... (linting tools needed for this)
+
 -- Next: (back to slides)
