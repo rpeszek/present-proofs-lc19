@@ -7,7 +7,9 @@
 #-}
 {-# OPTIONS_GHC -fenable-rewrite-rules #-}
 
--- | About eliminatating run time cost of proofs
+-- | About eliminating run time cost of proofs
+-- example of (not very maintainable) recursive proofs
+
 module Present.ProofsNatAlg (
   plusCommutative
   , believeMeEq

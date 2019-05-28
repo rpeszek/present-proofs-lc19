@@ -8,13 +8,13 @@
   -- , ScopedTypeVariables
 #-}
 
--- | Shows why Peano defined Nat theorems (ProofsNatAlg)
+-- | Shows why previously defined Peano Nat theorems (ProofsNatAlg)
 -- do not translate directly to TypeLits.
--- The reason is that Peano 'Nat'
--- (as defined in 'Data.Nat' in this project) is defined recursively
--- and so is '+' providing definitionally true propositions
--- we can hook into.  This is not true in TypeLits, we have nothing
+-- The reason is that recursive implementation of '+' spilled into type level
+-- providing `definitionally` true base propositions
+-- we had hooked into.  This is not true in TypeLits, we have nothing
 -- to base proofs on.
+
 module Present.WorkingWithTypeLits where
 
 import           GHC.TypeLits
@@ -93,10 +93,10 @@ plusCommutative left right = case left of
                   Refl -> sym (lemma2 right k)
 
 
--- OPINION: Make client code (+) implementation agnostic 
--- Peano (Data.Nat) proofs should not have relied in implicit 
+-- OPINION: Make client code (+) implementation agnostic
+-- Peano (Data.Nat) proofs should not have relied in implicit
 -- (1 + left) + right :~: 1 + (left + right)
--- 1 + (left + right) :~: ((1 + left) + right) 
+-- 1 + (left + right) :~: ((1 + left) + right)
 -- propositions. These base propositions should have been stated explicitly
 -- and used in client code when relevant ... (linting tools needed for this)
 
