@@ -63,6 +63,8 @@ orCommutes b1 b2 = case b1 of
        SFalse -> Refl
        STrue -> Refl
    STrue -> th1 b2  -- why this works? think about it! Hint is `th0`
+                    -- OPINION: best not to rely on propositions 
+                    -- derived from implementation (make proof implementation agnostic)
   
 
 ------------------------------------------

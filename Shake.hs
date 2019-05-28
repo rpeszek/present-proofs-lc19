@@ -33,7 +33,7 @@ targets = [liquid, idris, stack, ohi]
 clean = "clean"
 build = "build"
 
-show_ = "show"
+repl = "repl"
 
 main :: IO ()
 main = shakeArgs opts $ do
@@ -50,21 +50,21 @@ main = shakeArgs opts $ do
     "shake-clean" ~> removeFilesAfter ".shake" ["//*"]
     idris <-> clean ~> cmd_ [idris] "--clean" [proj_idr]   
     stack <-> clean ~> cmd_ [stack] "clean"
-    liquid <-> clean ~> removeFilesAfter "src/Wrapup/.liquid" ["//*"] 
+    liquid <-> clean ~> removeFilesAfter "src/Motivation/.liquid" ["//*"] 
     ohi <-> clean ~> (removeFilesAfter "src" ["//*.o"] >> 
                      removeFilesAfter "src" ["//*.hi"])
 
     idris <-> build ~> cmd_ [idris] "--build" [proj_idr]
     stack <-> build ~> cmd_ [stack] "build" 
-    liquid <-> build ~> cmd_ [liquid] "src/Wrapup/Liquid.hs"
+    liquid <-> build ~> cmd_ [liquid] "src/Motivation/Liquid.hs"
     ohi <-> build ~> pure ()
 
-    show_ <-> idris ~> cmd_ inSrc idris
+    repl <-> idris ~> cmd_ inSrc idris
 
-    show_ <-> "maybeb" ~> cmd "stack ghci src/Present/MaybeB.hs"    
-    show_ <-> "boolalg" ~> cmd "stack ghci src/Present/ProofsBoolAlg.hs"  
-    show_ <-> "perf" ~> cmd "stack ghci src/Present/ProofsNatAlg.hs"   
-    show_ <-> "dec" ~> cmd "stack ghci src/Present/ProofsDecidable.hs"
-    show_ <-> "typelits" ~> cmd "stack ghci src/Present/WorkingWithTypeLits.hs"
+    repl <-> "maybeb" ~> cmd "stack ghci src/Present/MaybeB.hs"    
+    repl <-> "boolalg" ~> cmd "stack ghci src/Present/ProofsBoolAlg.hs"  
+    repl <-> "perf" ~> cmd "stack ghci src/Present/ProofsNatAlg.hs"   
+    repl <-> "dec" ~> cmd "stack ghci src/Present/ProofsDecidable.hs"
+    repl <-> "typelits" ~> cmd "stack ghci src/Present/WorkingWithTypeLits.hs"
 
     

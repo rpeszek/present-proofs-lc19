@@ -7,7 +7,7 @@
       , AllowAmbiguousTypes
 #-}
 
-module Wrapup.DepTyped where
+module Motivation.DepTyped where
 
 import           Data.Vect  -- defined in this package
 import           Data.Nat   -- defined in this package

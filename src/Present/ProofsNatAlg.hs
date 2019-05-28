@@ -53,6 +53,7 @@ plusCommutative left right = case left of
 
 -- Following rule is dangerous (remove r and l and it still compiles, but will crash the app!):
 --
+-- {-# NOINLINE plusCommutative #-}
 -- {-# RULES "proof" forall l r. plusCommutative l r = unsafeCoerce Refl #-}
 --
 -- ref https://typesandkinds.wordpress.com/2016/07/24/dependent-types-in-haskell-progress-report/

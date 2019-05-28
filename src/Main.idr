@@ -1,6 +1,6 @@
 module Main
 
-import Wrapup.Exfer
+import Motivation.Exfer
 
 main : IO ()
 main = putStrLn "Hello"

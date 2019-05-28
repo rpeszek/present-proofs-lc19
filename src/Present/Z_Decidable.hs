@@ -15,7 +15,7 @@
 --
 -- Program like David Hilbert would!
 --
-module Present.ProofsDecidable where
+module Present.Z_Decidable where
 
 import           Data.Void
 import           Data.Nat hiding (Less) -- defined in this package
