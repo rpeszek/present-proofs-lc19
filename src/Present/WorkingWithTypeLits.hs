@@ -11,9 +11,9 @@
 -- | Shows why previously defined Peano Nat theorems (ProofsNatAlg)
 -- do not translate directly to TypeLits.
 -- The reason is that recursive implementation of '+' spilled into type level
--- providing `definitionally` true base propositions
--- we had hooked into.  This is not true in TypeLits, we have nothing
--- to base proofs on.
+-- providing `definitional` equalities that ProofsNatAlg.hs used implicitly.
+-- This is not true for TypeLits, we have nothing
+-- to base the proofs on.
 
 module Present.WorkingWithTypeLits where
 
@@ -94,10 +94,10 @@ plusCommutative left right = case left of
 
 
 -- OPINION: Make client code (+) implementation agnostic
--- Peano (Data.Nat) proofs should not have relied in implicit
+-- Peano (Data.Nat) proofs should not have relied on implicit
 -- (1 + left) + right :~: 1 + (left + right)
 -- 1 + (left + right) :~: ((1 + left) + right)
--- propositions. These base propositions should have been stated explicitly
--- and used in client code when relevant ... (linting tools needed for this)
+-- definitional equalities. These base propositions should have been stated explicitly
+-- and used in client code when relevant ... (linting tool/type checker plugin for this?)
 
 -- Next: (back to slides)

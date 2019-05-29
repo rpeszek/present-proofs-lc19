@@ -19,6 +19,7 @@ import           Data.Semigroup
 
 
 -- | use of 'Refl' indicates that GHC knows it
+-- (this is called definitional)
 -- how?
 th0 ::  forall b . True :~: (True :|| b)
 th0 = Refl   
@@ -45,10 +46,13 @@ False || b = b
 
 -- ^ brittleness alert: 
 --   should programmer know that (||) was defined pattern by matching on first variable not second?
---   what if it was defined without a pattern match???
 --   Drawback of using value level expressions at type level!
 --   To prove X requires knowing implementation of X - dah
 
+
+-------------------------
+-- proofs 
+-------------------------
 
 th1 :: SBool b -> 
        True :~: (b :|| True)
@@ -63,14 +67,13 @@ orCommutes b1 b2 = case b1 of
        SFalse -> Refl
        STrue -> Refl
    STrue -> th1 b2  -- why this works? think about it! Hint is `th0`
-                    -- OPINION: best not to rely on propositions 
-                    -- derived from implementation (make proof implementation agnostic)
+                    -- OPINION: this is not best code, 
+                    -- split case would be (||) implementation agnostic
   
 
 ------------------------------------------
 -- We are ready to implement 'secondKnown'
 ------------------------------------------
-
 secondKnown :: Semigroup m => SBool b -> 
                MaybeB b m -> MaybeB 'True m -> MaybeB 'True m
 secondKnown b x1 x2 = case th1 b of 
@@ -78,13 +81,18 @@ secondKnown b x1 x2 = case th1 b of
 
 secondKnown2 :: Semigroup m => Sing b -> 
                 MaybeB b m -> MaybeB 'True m -> MaybeB 'True m
-secondKnown2 b x1 x2 = case orCommutes b STrue of 
-    Refl -> append x1 x2
+secondKnown2 b = case orCommutes b STrue of 
+    Refl -> append 
+
+
+-- OPINIONATED improvement:
+firstKnown2 :: Semigroup m => Sing b -> MaybeB True m -> MaybeB b m -> MaybeB 'True m
+firstKnown2 b = case orCommutes STrue b of 
+    Refl -> append
 
 
 
-
-
+-- Side notes:
 -- (syntax) polymorphic versions from singletons
 secondKnown3 :: Semigroup m => Sing b -> 
                 MaybeB b m -> MaybeB 'True m -> MaybeB 'True m

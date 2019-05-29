@@ -60,7 +60,7 @@ decideLess (SS _n) (SS _m) = case decideLess _n _m of
       No contra -> No $ (\x {- :: Less (S _n) (S _m) -} -> case x of
                              LessS y -> contra y 
                              -- ^ we need to disprove Less successor expression
-                             -- this has to be 'LessS' of predicessor 'y'
+                             -- this can only be 'LessS' of predecessor 'y'
                              )
 
 -- decideLess is a better version of (<)
