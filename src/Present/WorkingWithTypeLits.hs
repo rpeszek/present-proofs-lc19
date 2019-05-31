@@ -11,7 +11,7 @@
 -- | Shows why previously defined Peano Nat theorems (ProofsNatAlg)
 -- do not translate directly to TypeLits.
 -- The reason is that recursive implementation of '+' spilled into type level
--- providing `definitional` equalities that ProofsNatAlg.hs used implicitly.
+-- providing `definitional1` equalities that ProofsNatAlg.hs used implicitly.
 -- This is not true for TypeLits, we have nothing
 -- to base the proofs on.
 
@@ -28,25 +28,26 @@ data NatPeano (n :: Nat) where
 deriving instance Show (NatPeano n)
 
 -- | Automatic in ProofsNatAlg
--- this comes from free if '+' is defined by pattern matching on first variable
+-- this associativity property comes
+-- for free if '+' is defined by pattern matching on first variable
 --   @s n + m = s (n + m)@
 -- for TypeLits I need to add it
 -- note Developer needs to care about implementation details
 -- note also no (KnownNat left, KnownNat right) constraint
 -- to avoid constraint issues with privately defined type class.
-definitional ::
+definitional1 ::
                 NatPeano left -> NatPeano right ->
                 (1 + left) + right :~: 1 + (left + right)
-definitional n m = believeMeEq
+definitional1 n m = believeMeEq
 
 
 {- |
  Automatic in ProofsNatAlg
   (reversed succesor equation in def of '+')
 -}
-assoc1 :: (KnownNat left, KnownNat right) => NatPeano left -> NatPeano right ->
+definitional2 :: (KnownNat left, KnownNat right) => NatPeano left -> NatPeano right ->
         1 + (left + right) :~: ((1 + left) + right) -- RHS same as (1 + left + right)
-assoc1 n m = sym $ definitional n m
+definitional2 n m = sym $ definitional1 n m
 
 -- | GHC knows that automatically:
 ind ::
@@ -64,7 +65,7 @@ lemma1 PeanoZ = Refl
 lemma1 (PeanoS k) = case lemma1 k of
                         Refl -> Refl
 
--- | needs evidence from 'definitional' and 'assoc1'
+-- | needs evidence from 'definitional1' and 'definitional2'
 lemma2 :: (KnownNat left, KnownNat right) => NatPeano left -> NatPeano right ->
           (left + (1 + right)) :~: (1 + (left + right))
 lemma2 PeanoZ right        = Refl
@@ -75,20 +76,21 @@ lemma2 PeanoZ right        = Refl
   ((1 + left) + (1 + right))
       :def       = 1 + (left + (1 + right))
       :indlifted = 1 + (1 + (left + right))
-      :assoc1    = (1 + ((1 + left) + right)
+      :definitional2    = (1 + ((1 + left) + right)
 -}
 lemma2 (PeanoS left) right =
-  case definitional left (PeanoS right) of -- ^ had to be added
+  case definitional1 left (PeanoS right) of -- ^ had to be added
       Refl -> case (lemma2 left right) of -- ^ ind is implicit
-        Refl -> case assoc1 left right of
+        Refl -> case definitional2 left right of
           Refl -> Refl
 
 
--- | needs evidence from 'definitional'
-plusCommutative :: (KnownNat left, KnownNat right) => NatPeano left -> NatPeano right -> ((left + right) :~: (right + left))
+-- | needs evidence from 'definitional1'
+plusCommutative :: (KnownNat left, KnownNat right) => NatPeano left -> NatPeano right ->
+                   ((left + right) :~: (right + left))
 plusCommutative left right = case left of
             PeanoZ  ->  lemma1 right
-            (PeanoS k) -> case definitional k right of -- had to be added
+            (PeanoS k) -> case definitional1 k right of -- had to be added
                Refl -> case plusCommutative k right of
                   Refl -> sym (lemma2 right k)
 
@@ -97,7 +99,7 @@ plusCommutative left right = case left of
 -- Peano (Data.Nat) proofs should not have relied on implicit
 -- (1 + left) + right :~: 1 + (left + right)
 -- 1 + (left + right) :~: ((1 + left) + right)
--- definitional equalities. These base propositions should have been stated explicitly
+-- definitional1 equalities. These base propositions should have been stated explicitly
 -- and used in client code when relevant ... (linting tool/type checker plugin for this?)
 
 -- Next: (back to slides)

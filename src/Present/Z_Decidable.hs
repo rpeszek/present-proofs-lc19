@@ -81,11 +81,12 @@ tst = sFromTL @ 2 <! sFromTL @ 3
 -- examples using Vector 
 ----------------------------------------
 
--- | 'SNat i -> Vect n a -> a' is not precise enough to use with Dec
+-- | 'SNat i -> Vect n a -> a' is not Dec friendly
 (!!) :: SNat i -> SNat n -> Dec (SNat i -> Vect n a -> a)
 (!!) si sn = case decideLess si sn of 
     Yes prf -> Yes $ lemma1 prf
     No cotr -> undefined -- this will not work!
+                         -- '(SNat i -> Vect n a -> a)' is inhabited as long as n > 0
   where
     lemma1 :: Less i n -> SNat i -> Vect n a -> a    
     lemma1 = undefined
