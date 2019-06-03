@@ -12,7 +12,8 @@ import           Data.Singletons.Prelude.Bool
 import           Data.Semigroup
   
 
-
+-- | Maybe (b :: Bool) a ~~ Sig Bool (\b -> if b then a else ()) 
+--
 data MaybeB (b :: Bool) a where
     NothingB :: MaybeB False a
     JustB    :: a -> MaybeB True a
